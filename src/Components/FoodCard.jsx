@@ -9,11 +9,10 @@ const FoodCard = ({ item }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { user } = useAuth;
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const handleAddCart = (food) => {
-    console.log("food", user.email, food);
     if (user && user?.email) {
       const cartItem = {
         menuId: _id,
@@ -32,20 +31,35 @@ const FoodCard = ({ item }) => {
             showConfirmButton: false,
             timer: 2000,
           });
-        Swal.fire({
-          title: "Your are not logged In",
-          text: "Please login to add to the cart",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, login !",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // send to user login page
-            navigate("/login", { state: { from: location } });
-          }
-        });
+        // Swal.fire({
+        //   title: "Your are not logged In",
+        //   text: "Please login to add to the cart",
+        //   icon: "warning",
+        //   showCancelButton: true,
+        //   confirmButtonColor: "#3085d6",
+        //   cancelButtonColor: "#d33",
+        //   confirmButtonText: "Yes, login !",
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     // send to user login page
+        //     navigate("/login", { state: { from: location } });
+        //   }
+        // });
+      });
+    } else {
+      Swal.fire({
+        title: "You are not logged in",
+        text: "Please login to add to the cart",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // send to user login page
+          navigate("/login", { state: { from: location } });
+        }
       });
     }
   };
