@@ -14,8 +14,8 @@ const FoodCard = ({ item }) => {
   const axiosSecure = useAxiosSecure();
 
   const handleAddCart = (food) => {
+    console.log("food", user.email, food);
     if (user && user?.email) {
-      console.log("food", user.email, food);
       const cartItem = {
         menuId: _id,
         email: user.email,
