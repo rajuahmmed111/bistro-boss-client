@@ -10,7 +10,6 @@ const FoodCard = ({ item }) => {
   const location = useLocation();
 
   const { user } = useAuth;
-
   const axiosSecure = useAxiosSecure();
 
   const handleAddCart = (food) => {
