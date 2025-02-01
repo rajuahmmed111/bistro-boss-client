@@ -1,8 +1,34 @@
+import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const [cart] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+
+  const handleDelete = (itemId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+    // const updatedCart = cart.filter((item) => item._id !== itemId);
+    // localStorage.setItem("cart", JSON.stringify(updatedCart));
+    // setCart(updatedCart);
+  };
+
   return (
     <div>
       <div className="flex justify-evenly">
@@ -16,48 +42,46 @@ const Cart = () => {
         </button>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="table">
+      <div className="overflow-x-auto mt-8">
+        <table className="table w-full">
           {/* head */}
-          <thead>
+          <thead className="bg-[#D1A054] text-white text-[16px] font-semibold p-5">
             <tr>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-              <th></th>
+              <th>#</th>
+              <th>ITEM IMAGE</th>
+              <th>ITEM NAME</th>
+              <th>PRICE</th>
+              <th>ACTION</th>
             </tr>
           </thead>
+
           <tbody>
             {/* row  */}
-            <tr>
-              <td>
-                <div className="flex items-center gap-3">
+            {cart.map((item, idx) => (
+              <tr key={item._id}>
+                <td>{idx + 1}</td>
+                <td>
                   <div className="avatar">
                     <div className="mask mask-squircle h-12 w-12">
                       <img
-                        src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                        src={item.image}
                         alt="Avatar Tailwind CSS Component"
                       />
                     </div>
                   </div>
-                  <div>
-                    <div className="font-bold">Hart Hagerty</div>
-                    <div className="text-sm opacity-50">United States</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                Zemlak, Daniel and Leannon
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Desktop Support Technician
-                </span>
-              </td>
-              <td>Purple</td>
-              <th>
-                <button className="btn btn-ghost btn-xs">details</button>
-              </th>
-            </tr>
+                </td>
+                <td>{item.name}</td>
+                <td>${item.price}</td>
+                <th>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="btn bg-[#B91C1c] text-white btn-sm"
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
