@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useCart from "../hooks/useCart";
 
 const FoodCard = ({ item }) => {
   const { name, image, price, recipe, _id } = item;
@@ -11,8 +12,10 @@ const FoodCard = ({ item }) => {
 
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [, refetch] = useCart();
 
-  const handleAddCart = (food) => {
+  const handleAddCart = () => {
+    // send to item in database
     if (user && user?.email) {
       const cartItem = {
         menuId: _id,
@@ -31,20 +34,8 @@ const FoodCard = ({ item }) => {
             showConfirmButton: false,
             timer: 2000,
           });
-        // Swal.fire({
-        //   title: "Your are not logged In",
-        //   text: "Please login to add to the cart",
-        //   icon: "warning",
-        //   showCancelButton: true,
-        //   confirmButtonColor: "#3085d6",
-        //   cancelButtonColor: "#d33",
-        //   confirmButtonText: "Yes, login !",
-        // }).then((result) => {
-        //   if (result.isConfirmed) {
-        //     // send to user login page
-        //     navigate("/login", { state: { from: location } });
-        //   }
-        // });
+        // refetch cart to update the cart items
+        refetch();
       });
     } else {
       Swal.fire({
@@ -82,7 +73,7 @@ const FoodCard = ({ item }) => {
 
         <div className="card-actions justify-center">
           <button
-            onClick={() => handleAddCart(item)}
+            onClick={handleAddCart}
             className="btn btn-outline border-0 border-b-4 uppercase text-[#BB8506]   hover:bg-[#1f2937] border-[#BB8506] mb-4"
           >
             Add to Cart
