@@ -24,6 +24,7 @@ const SignUp = () => {
 
       updateUserProfile(data.name, data.photoUrl, data.email)
         .then(() => {
+          // create user saved profile in the database
           console.log("User profile info updated");
           reset();
           Swal.fire({
