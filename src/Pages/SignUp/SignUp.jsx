@@ -1,9 +1,9 @@
-import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../provider/AuthProvider";
+import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SignUp = () => {
   const {
@@ -13,9 +13,9 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
-
+  const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit = (data) => {
     createUser(data.email, data.password).then((result) => {
@@ -24,24 +24,34 @@ const SignUp = () => {
 
       updateUserProfile(data.name, data.photoUrl, data.email)
         .then(() => {
-          // create user saved profile in the database
-          console.log("User profile info updated");
-          reset();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User Create Successfully.",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+            photoUrl: data.photoUrl,
+          };
 
-          logOut()
-            .then(() => {
-              navigate("/login");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          // create user saved profile in the database
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User Create Successfully.",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/");
+
+              // logOut()
+              //   .then(() => {
+              //     navigate("/login");
+              //   })
+              //   .catch((err) => {
+              //     console.log(err);
+              //   });
+            }
+          });
         })
         .catch((err) => {
           console.log(err);
