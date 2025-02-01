@@ -1,12 +1,18 @@
 import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Cart = () => {
-  const [cart] = useCart();
+  const axiosSecure = useAxiosSecure();
+  const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   const handleDelete = (itemId) => {
+    // delete item from database
+
+    // refetch cart data
+
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -14,19 +20,22 @@ const Cart = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
+        axiosSecure.delete(`/carts/${itemId}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
         });
       }
     });
-    // const updatedCart = cart.filter((item) => item._id !== itemId);
-    // localStorage.setItem("cart", JSON.stringify(updatedCart));
-    // setCart(updatedCart);
   };
 
   return (
