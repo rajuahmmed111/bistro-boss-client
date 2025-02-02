@@ -4,14 +4,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const SocialLogin = () => {
-  const { signInWithGoogle } = useAuth();
+  const { googleSignIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const axiosPublic = useAxiosPublic();
 
   const handleGoogleSignIn = () => {
-    signInWithGoogle()
+    googleSignIn()
       .then((res) => {
         const user = res.user;
         console.log("User signed in google:", user);
