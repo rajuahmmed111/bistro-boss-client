@@ -1,13 +1,16 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import {
   FaAd,
+  FaBook,
   FaCalendar,
   FaEnvelope,
   FaHome,
   FaList,
   FaShoppingCart,
 } from "react-icons/fa";
+import { HiUserGroup } from "react-icons/hi";
 import { MdOutlinePayment } from "react-icons/md";
+import { TbToolsKitchen3 } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
@@ -32,7 +35,7 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/add-items">
                   {" "}
-                  <FaCalendar />
+                  <TbToolsKitchen3 />
                   Add Items
                 </NavLink>
               </li>
@@ -40,28 +43,21 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/manage-items">
                   {" "}
-                  <MdOutlinePayment /> Manage Items
+                  <FaList /> Manage Items
                 </NavLink>
               </li>
               {/* my cart */}
               <li>
                 <NavLink to="/dashboard/bookings">
                   {" "}
-                  <FaShoppingCart /> Manage Bookings
+                  <FaBook /> Manage Bookings
                 </NavLink>
               </li>
               {/* add review */}
               <li>
                 <NavLink to="/dashboard/users">
                   {" "}
-                  <FaAd /> All Users
-                </NavLink>
-              </li>
-              {/*  */}
-              <li>
-                <NavLink to="/dashboard/bookings">
-                  {" "}
-                  <FaList /> My Booking
+                  <HiUserGroup /> All Users
                 </NavLink>
               </li>
             </>
