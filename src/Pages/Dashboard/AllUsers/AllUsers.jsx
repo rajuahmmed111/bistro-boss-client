@@ -1,4 +1,49 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
+
 const AllUsers = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { refetch, data: users = [] } = useQuery({
+    queryKey: "users",
+    queryFn: async () => {
+      const res = await axiosSecure.get("/users");
+      return res.data;
+    },
+  });
+
+  const handleDelete = (userId) => {
+    // delete item from database
+
+    // refetch cart data
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/users/${userId}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+
   return (
     <div>
       <div className=" text-center">
@@ -9,7 +54,45 @@ const AllUsers = () => {
         <h1 className="text-4xl ">MANAGE ALL USERS</h1>
       </div>
       <div>
-        <h2>Total Users</h2>
+        <h2>Total Users : {users.length}</h2>
+
+        {/* table */}
+        <div className="overflow-x-auto mt-8">
+          <table className="table w-full">
+            {/* head */}
+            <thead className="bg-[#D1A054] text-white text-[16px] font-semibold p-5">
+              <tr>
+                <th>#</th>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>ROLE</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {/* row  */}
+              {users.map((user, idx) => (
+                <tr key={user._id}>
+                  <td>{idx + 1}</td>
+                  <td>{user.name}</td>
+                  <td>${user.email}</td>
+
+                  <td>User</td>
+
+                  <th>
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      className="btn bg-[#B91C1c] text-white btn-sm"
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const Cart = () => {
         axiosSecure.delete(`/carts/${itemId}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
-            
+
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -51,6 +51,7 @@ const Cart = () => {
         </button>
       </div>
 
+      {/* table */}
       <div className="overflow-x-auto mt-8">
         <table className="table w-full">
           {/* head */}
