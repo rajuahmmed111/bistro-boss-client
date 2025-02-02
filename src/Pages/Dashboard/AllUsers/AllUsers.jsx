@@ -49,15 +49,20 @@ const AllUsers = () => {
       <div className=" text-center">
         <h3 className="text-xl text-[#D1A054]">---How many??---</h3>
         <div className="flex justify-center">
-          <div className="divider w-1/3"></div>
+          <div className="divider w-1/2"></div>
         </div>
         <h1 className="text-4xl ">MANAGE ALL USERS</h1>
+        <div className="flex justify-center">
+          <div className="divider w-1/2"></div>
+        </div>
       </div>
-      <div>
-        <h2>Total Users : {users.length}</h2>
+      <div className="bg-white p-5">
+        <h2 className="text-3xl font-semibold font-serif mt-4">
+          Total Users : {users.length}
+        </h2>
 
         {/* table */}
-        <div className="overflow-x-auto mt-8">
+        <div className="overflow-x-auto mt-5">
           <table className="table w-full">
             {/* head */}
             <thead className="bg-[#D1A054] text-white text-[16px] font-semibold p-5">

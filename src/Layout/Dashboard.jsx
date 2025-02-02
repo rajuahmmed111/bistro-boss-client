@@ -11,7 +11,8 @@ import {
 import { HiUserGroup } from "react-icons/hi";
 import { MdOutlinePayment } from "react-icons/md";
 import { TbToolsKitchen3 } from "react-icons/tb";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import bistroImg from "../assets/bistro-boss.png";
 
 const Dashboard = () => {
   // TODO: get admin from database
@@ -22,6 +23,11 @@ const Dashboard = () => {
       {/* dashboard side bar */}
       <div className="w-64 min-h-screen bg-[#D1A054]">
         <ul className="menu p-4">
+          <div className="flex ml-5 my-7">
+            <Link to="/">
+              <img className="w-2/3" src={bistroImg} alt="bistro-boss" />
+            </Link>
+          </div>
           {isAdmin ? (
             <>
               {/* user home */}
@@ -135,7 +141,7 @@ const Dashboard = () => {
       </div>
 
       {/* dashboard content */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 lg:px-28 md:px-20 px-9 py-10 bg-[#F6F6F6]">
         <Outlet></Outlet>
       </div>
     </div>
