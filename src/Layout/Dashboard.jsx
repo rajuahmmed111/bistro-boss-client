@@ -13,10 +13,11 @@ import { MdOutlinePayment } from "react-icons/md";
 import { TbToolsKitchen3 } from "react-icons/tb";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import bistroImg from "../assets/bistro-boss.png";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   // TODO: get admin from database
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">
