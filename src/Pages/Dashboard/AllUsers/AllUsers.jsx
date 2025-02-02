@@ -14,11 +14,24 @@ const AllUsers = () => {
     },
   });
 
+  const handleMakeAdmin = (user) => {
+    // update user in database
+    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${user.name} has been made an admin`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
   const handleDelete = (userId) => {
     // delete item from database
-
-    // refetch cart data
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -84,9 +97,16 @@ const AllUsers = () => {
                   <td>{user.email}</td>
 
                   <td>
-                    <button className="btn btn-sm text-xl bg-[#D1A054]">
-                      <FaUsers className="text-white" />
-                    </button>
+                    {user.role === "admin" ? (
+                      "Admin"
+                    ) : (
+                      <button
+                        onClick={() => handleMakeAdmin(user)}
+                        className="btn btn-sm text-xl bg-[#D1A054]"
+                      >
+                        <FaUsers className="text-white" />
+                      </button>
+                    )}
                   </td>
 
                   <th>
