@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const AllUsers = () => {
@@ -81,9 +81,13 @@ const AllUsers = () => {
                 <tr key={user._id}>
                   <td>{idx + 1}</td>
                   <td>{user.name}</td>
-                  <td>${user.email}</td>
+                  <td>{user.email}</td>
 
-                  <td>User</td>
+                  <td>
+                    <button className="btn btn-sm text-xl bg-[#D1A054]">
+                      <FaUsers className="text-white" />
+                    </button>
+                  </td>
 
                   <th>
                     <button

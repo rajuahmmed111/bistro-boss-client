@@ -40,60 +40,72 @@ const Cart = () => {
 
   return (
     <div>
-      <div className="flex justify-evenly">
-        <h2 className="text-3xl">Items: {cart.length}</h2>
-        <h2 className="text-3xl">Total Price: {totalPrice}</h2>
-        <button
-          className="text-xl font-medium text-white bg-[#D1A054] px-4  py-2 rounded-md"
-          onClick={() => console.log(cart)}
-        >
-          Pay
-        </button>
+      <div className=" text-center">
+        <h3 className="text-xl text-[#D1A054]">---Excellent Ambience---</h3>
+        <div className="flex justify-center">
+          <div className="divider w-1/3"></div>
+        </div>
+        <h1 className="text-4xl ">MY BOOKINGS</h1>
+        <div className="flex justify-center">
+          <div className="divider w-1/3"></div>
+        </div>
       </div>
+      <div className="bg-white p-5">
+        <div className="flex justify-between font-serif mt-4">
+          <h2 className="text-3xl">BOOKINGS: {cart.length}</h2>
+          <h2 className="text-3xl">TOTAL PRICE: {totalPrice}</h2>
+          <button
+            className="text-xl font-medium text-white bg-[#D1A054] px-4  py-2 rounded-md"
+            onClick={() => console.log(cart)}
+          >
+            Pay
+          </button>
+        </div>
 
-      {/* table */}
-      <div className="overflow-x-auto mt-8">
-        <table className="table w-full">
-          {/* head */}
-          <thead className="bg-[#D1A054] text-white text-[16px] font-semibold p-5">
-            <tr>
-              <th>#</th>
-              <th>ITEM IMAGE</th>
-              <th>ITEM NAME</th>
-              <th>PRICE</th>
-              <th>ACTION</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {/* row  */}
-            {cart.map((item, idx) => (
-              <tr key={item._id}>
-                <td>{idx + 1}</td>
-                <td>
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={item.image}
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                </td>
-                <td>{item.name}</td>
-                <td>${item.price}</td>
-                <th>
-                  <button
-                    onClick={() => handleDelete(item._id)}
-                    className="btn bg-[#B91C1c] text-white btn-sm"
-                  >
-                    <FaTrashAlt />
-                  </button>
-                </th>
+        {/* table */}
+        <div className="overflow-x-auto mt-4">
+          <table className="table w-full">
+            {/* head */}
+            <thead className="bg-[#D1A054] text-white text-[16px] font-semibold p-5">
+              <tr>
+                <th>#</th>
+                <th>ITEM IMAGE</th>
+                <th>ITEM NAME</th>
+                <th>PRICE</th>
+                <th>ACTION</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {/* row  */}
+              {cart.map((item, idx) => (
+                <tr key={item._id}>
+                  <td>{idx + 1}</td>
+                  <td>
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img
+                          src={item.image}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td>{item.name}</td>
+                  <td>${item.price}</td>
+                  <th>
+                    <button
+                      onClick={() => handleDelete(item._id)}
+                      className="btn bg-[#B91C1c] text-white btn-sm"
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
