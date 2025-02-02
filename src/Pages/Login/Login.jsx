@@ -9,6 +9,7 @@ import {
 import { AuthContext } from "../../provider/AuthProvider";
 
 import Swal from "sweetalert2";
+import SocialLogin from "../../Components/SocialLogin";
 
 // import authenticationImg from "../../assets/others/authentication1.png";
 
@@ -123,13 +124,14 @@ const Login = () => {
               <div className="form-control mt-6">
                 <input
                   disabled={disabled}
-                  className="btn bg-[#DBB984] hover:bg-violet-600 text-white"
+                  className="btn bg-[#D1A054] hover:bg-violet-600 text-white"
                   type="submit"
                   value="Login"
                 />
               </div>
             </form>
-            <p className="text-xl text-center pb-5 text-[#D1A054]">
+
+            <p className="text-xl text-center text-[#D1A054]">
               <small className="font-semibold">
                 New here?
                 <Link className="font-bold" to={"/signUp"}>
@@ -137,6 +139,7 @@ const Login = () => {
                 </Link>
               </small>
             </p>
+            <SocialLogin />
           </div>
         </div>
       </div>
