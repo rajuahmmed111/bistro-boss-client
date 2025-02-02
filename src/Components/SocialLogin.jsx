@@ -1,18 +1,37 @@
 import { FaGoogle } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const SocialLogin = () => {
   const { signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleGoogleSignIn = async () => {
-    await signInWithGoogle()
+  const axiosPublic = useAxiosPublic();
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
       .then((res) => {
         const user = res.user;
         console.log("User signed in google:", user);
-        navigate(location.state?.from || "/", { replace: true });
+
+        // Save user data to the database
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+          photoUrl: user.photoURL,
+        };
+
+        axiosPublic
+          .post("/users", userInfo)
+          .then((res) => {
+            console.log("User saved to the database:", res.data);
+            navigate(location.state?.from || "/", { replace: true });
+          })
+          .catch((error) => {
+            console.log("Error saving user to the database:", error);
+          });
       })
       .catch((error) => {
         console.log("Error signing in with google:", error);
