@@ -13,12 +13,14 @@ import { MdOutlinePayment } from "react-icons/md";
 import { TbToolsKitchen3 } from "react-icons/tb";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import bistroImg from "../assets/bistro-boss.png";
-// import useAdmin from "../hooks/useAdmin";
+import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
+  const [cart] = useCart();
   // TODO: get admin from database
-  // const [isAdmin] = useAdmin();
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  // const isAdmin = true;
 
   return (
     <div className="flex">
@@ -96,7 +98,7 @@ const Dashboard = () => {
               <li>
                 <NavLink to="/dashboard/cart">
                   {" "}
-                  <FaShoppingCart /> My Cart
+                  <FaShoppingCart /> My Cart ({cart.length})
                 </NavLink>
               </li>
               {/* add review */}
