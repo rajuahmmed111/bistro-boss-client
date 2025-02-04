@@ -18,9 +18,9 @@ const SocialLogin = () => {
 
         // Save user data to the database
         const userInfo = {
-          name: user.displayName,
-          email: user.email,
-          photoUrl: user.photoURL,
+          name: user?.displayName,
+          email: user?.email,
+          photoUrl: user?.photoURL,
         };
 
         axiosPublic
