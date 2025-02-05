@@ -2,6 +2,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const axiosSecure = useAxiosSecure();
@@ -54,12 +55,20 @@ const Cart = () => {
         <div className="flex justify-between font-serif mt-4">
           <h2 className="text-3xl">BOOKINGS: {cart.length}</h2>
           <h2 className="text-3xl">TOTAL PRICE: {totalPrice}</h2>
-          <button
-            className="text-xl font-medium text-white bg-[#D1A054] px-4  py-2 rounded-md"
-            onClick={() => console.log(cart)}
-          >
-            Pay
-          </button>
+          {cart.length ? (
+            <Link to="/dashboard/payment">
+              <button className="btn text-xl font-medium text-white bg-[#D1A054] px-4  py-2 rounded-md">
+                Pay
+              </button>
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="btn btn-primary text-xl font-medium text-white px-4  py-2 rounded-md"
+            >
+              Pay
+            </button>
+          )}
         </div>
 
         {/* table */}

@@ -18,9 +18,7 @@ import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
-  // TODO: get admin from database
   const [isAdmin] = useAdmin();
-  // const isAdmin = true;
 
   return (
     <div className="flex">
@@ -49,7 +47,7 @@ const Dashboard = () => {
                   Add Items
                 </NavLink>
               </li>
-              {/* payment history */}
+              {/* manage items */}
               <li>
                 <NavLink to="/dashboard/manage-items">
                   {" "}
@@ -89,7 +87,7 @@ const Dashboard = () => {
               </li>
               {/* payment history */}
               <li>
-                <NavLink to="/dashboard/payment">
+                <NavLink to="/dashboard/payment-history">
                   {" "}
                   <MdOutlinePayment /> Payment History
                 </NavLink>
