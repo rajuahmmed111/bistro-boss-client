@@ -1,28 +1,36 @@
+import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const PaymentHistory = () => {
-    
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+
+  const { data: payments = [] } = useQuery({
+    queryKey: ["payments", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/payments/${user.email}`);
+      return res.data;
+    },
+  });
+
   return (
     <div>
-      <SectionTitle subHeading="At a Glance!" heading="PAYMENT HISTORY" />
+      <div className=" text-center">
+        <h3 className="text-xl text-[#D1A054]">---At a Glance!---</h3>
+        <div className="flex justify-center">
+          <div className="divider w-1/3"></div>
+        </div>
+        <h1 className="text-4xl ">PAYMENT HISTORY</h1>
+        <div className="flex justify-center">
+          <div className="divider w-1/3"></div>
+        </div>
+      </div>
+
       <div className="bg-white p-5">
         <div className="flex justify-between font-serif mt-4">
-          <h2 className="text-3xl">BOOKINGS: {cart.length}</h2>
-          <h2 className="text-3xl">TOTAL PRICE: {totalPrice}</h2>
-          {cart.length ? (
-            <Link to="/dashboard/payment">
-              <button className="btn text-xl font-medium text-white bg-[#D1A054] px-4  py-2 rounded-md">
-                Pay
-              </button>
-            </Link>
-          ) : (
-            <button
-              disabled
-              className="btn btn-primary text-xl font-medium text-white px-4  py-2 rounded-md"
-            >
-              Pay
-            </button>
-          )}
+          <h2 className="text-3xl">Total Payments: {payments.length}</h2>
         </div>
 
         {/* table */}
@@ -32,30 +40,30 @@ const PaymentHistory = () => {
             <thead className="bg-[#D1A054] text-white text-[16px] font-semibold p-5">
               <tr>
                 <th>#</th>
-                <th>ITEM IMAGE</th>
-                <th>ITEM NAME</th>
-                <th>PRICE</th>
-                <th>ACTION</th>
+                <th>EMAIL</th>
+                <th>CATEGORY</th>
+                <th>TOTAL PRICE</th>
+                <th>PAYMENT DATE</th>
               </tr>
             </thead>
 
             <tbody>
               {/* row  */}
-              {cart.map((item, idx) => (
-                <tr key={item._id}>
+              {payments.map((payment, idx) => (
+                <tr key={payment._id}>
                   <td>{idx + 1}</td>
                   <td>
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img
-                          src={item.image}
+                          src={payment.image}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
                     </div>
                   </td>
-                  <td>{item.name}</td>
-                  <td>${item.price}</td>
+                  <td>{payment.name}</td>
+                  <td>${payment.price}</td>
                 </tr>
               ))}
             </tbody>
