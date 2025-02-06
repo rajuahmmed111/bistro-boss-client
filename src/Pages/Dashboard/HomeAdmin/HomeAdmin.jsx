@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { FaDollarSign, FaUsers } from "react-icons/fa";
+import { AiOutlineProduct } from "react-icons/ai";
+import { MdProductionQuantityLimits } from "react-icons/md";
 
 const HomeAdmin = () => {
   const { user } = useAuth();
@@ -23,21 +26,48 @@ const HomeAdmin = () => {
 
       <div className="p-6 bg-gray-100 min-h-screen my-6">
         <div className="grid grid-cols-4 gap-4 mb-8">
-          <div className="bg-purple-100 p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-bold">{stats.totalRevenues}</h2>
-            <p className="text-gray-600">Revenue</p>
+          {/* total revenues */}
+          <div className="bg-gradient-to-r from-[#BE3BF5] to-[#F9D4FF] text-white p-4 rounded-xl shadow-md flex justify-center gap-4">
+            <div className="flex justify-center items-center">
+              <FaDollarSign className="w-12 h-12" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold">{stats.totalRevenues}</h2>
+              <p className="">Revenue</p>
+            </div>
           </div>
-          <div className="bg-yellow-100 p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-bold">{stats.totalUsers}</h2>
-            <p className="text-gray-600">Customers</p>
+
+          {/* total users */}
+          <div className="bg-gradient-to-r from-[#D1A054] to-[#FAE4BA] text-white p-4 rounded-xl shadow-md flex justify-center gap-4">
+            <div className="flex justify-center items-center">
+              <FaUsers className="w-10 h-10" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold">{stats.totalUsers}</h2>
+              <p className="">Customers</p>
+            </div>
           </div>
-          <div className="bg-pink-100 p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-bold">{stats.totalMenuItems}</h2>
-            <p className="text-gray-600">Products</p>
+
+          {/* total products */}
+          <div className="bg-gradient-to-r from-[#FE4B82] to-[#FECCE8] text-white p-4 rounded-xl shadow-md flex justify-center gap-4">
+            <div className="flex justify-center items-center">
+              <AiOutlineProduct className="w-10 h-10" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold">{stats.totalMenuItems}</h2>
+              <p className="">Products</p>
+            </div>
           </div>
-          <div className="bg-blue-100 p-4 rounded-xl shadow-md">
-            <h2 className="text-xl font-bold">{stats.totalOrders}</h2>
-            <p className="text-gray-600">Orders</p>
+
+          {/* total orders */}
+          <div className="bg-gradient-to-r from-[#6CAFFF] to-[#B5F6FF] text-white p-4 rounded-xl shadow-md flex justify-center gap-4">
+            <div className="flex justify-center items-center">
+              <MdProductionQuantityLimits className="w-10 h-10" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold">{stats.totalOrders}</h2>
+              <p className="">Orders</p>
+            </div>
           </div>
         </div>
 
