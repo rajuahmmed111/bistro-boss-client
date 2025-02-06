@@ -94,9 +94,9 @@ const CheckoutForm = () => {
           },
         }}
       />
-      <p className="text-xl font-medium text-red-600 text-center">{error}</p>
+      <p className="text-xl font-medium text-red-600 text-center mt-4">{error}</p>
       {transactionId && (
-        <p className="text-green-600"> Your Transaction Id : {transactionId}</p>
+        <p className="text-xl font-medium text-green-600 text-center mt-4"> Your Transaction Id : {transactionId}</p>
       )}
 
       <div className="flex justify-center">
