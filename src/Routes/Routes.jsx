@@ -83,7 +83,12 @@ export const router = createBrowserRouter([
       // only admin routes
       {
         path: "admin-home",
-        element: <HomeAdmin />,
+        element: (
+          <AdminRoute>
+            {" "}
+            <HomeAdmin />
+          </AdminRoute>
+        ),
       },
       {
         path: "add-items",
