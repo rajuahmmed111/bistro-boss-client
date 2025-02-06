@@ -15,10 +15,21 @@ const CheckoutForm = () => {
     if (card === null) {
       return;
     }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
+
+    if (error) {
+      console.error("Payment failed:", error);
+    } else {
+      console.log("Payment successful", paymentMethod);
+    }
   };
 
   return (
-    <div className="bg-white p-10">
+    // <div className="bg-white p-10">
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{
@@ -47,7 +58,7 @@ const CheckoutForm = () => {
           </button>
         </div>
       </form>
-    </div>
+    // </div>
   );
 };
 
