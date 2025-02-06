@@ -71,6 +71,20 @@ const CheckoutForm = () => {
       // setError("");
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
+
+        // now save the payment in database
+        const payment = {
+          email: user?.email,
+          amount: totalPrice,
+          transactionId: paymentIntent.id,
+          date: new Date(), // convert utc time use moment js
+          cartIds: cart.map((item) => item._id),
+          menuItemIds: cart.map((item) => item.menuId),
+          status: "pending",
+        };
+
+        const res = await axiosSecure.post("/payment", payment)
+        console.log(res.data);
       }
     }
   };
@@ -94,9 +108,14 @@ const CheckoutForm = () => {
           },
         }}
       />
-      <p className="text-xl font-medium text-red-600 text-center mt-4">{error}</p>
+      <p className="text-xl font-medium text-red-600 text-center mt-4">
+        {error}
+      </p>
       {transactionId && (
-        <p className="text-xl font-medium text-green-600 text-center mt-4"> Your Transaction Id : {transactionId}</p>
+        <p className="text-xl font-medium text-green-600 text-center mt-4">
+          {" "}
+          Your Transaction Id : {transactionId}
+        </p>
       )}
 
       <div className="flex justify-center">
