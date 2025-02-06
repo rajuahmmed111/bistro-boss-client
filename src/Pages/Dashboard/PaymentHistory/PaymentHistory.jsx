@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
@@ -52,18 +51,9 @@ const PaymentHistory = () => {
               {payments.map((payment, idx) => (
                 <tr key={payment._id}>
                   <td>{idx + 1}</td>
-                  <td>
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src={payment.image}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>{payment.name}</td>
-                  <td>${payment.price}</td>
+                  <td>{payment.email}</td>
+                  <td>{payment.date}</td>
+                  <td>${payment.amount}</td>
                 </tr>
               ))}
             </tbody>
