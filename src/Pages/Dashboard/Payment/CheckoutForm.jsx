@@ -1,8 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useState } from "react";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,41 +25,44 @@ const CheckoutForm = () => {
 
     if (error) {
       console.error("Payment failed:", error);
+      setError(error.message);
     } else {
       console.log("Payment successful", paymentMethod);
+      setError("");
     }
   };
 
   return (
     // <div className="bg-white p-10">
-      <form onSubmit={handleSubmit}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
+    <form onSubmit={handleSubmit}>
+      <CardElement
+        options={{
+          style: {
+            base: {
+              fontSize: "16px",
+              color: "#A1A1A1",
+              "::placeholder": {
                 color: "#A1A1A1",
-                "::placeholder": {
-                  color: "#A1A1A1",
-                },
-              },
-              invalid: {
-                color: "#9e2146",
               },
             },
-          }}
-        />
+            invalid: {
+              color: "#9e2146",
+            },
+          },
+        }}
+      />
+      <p className="text-xl font-medium text-red-600 text-center">{error}</p>
 
-        <div className="flex justify-center">
-          <button
-            className="btn btn-primary mt-10 w-1/2 text-xl"
-            type="submit"
-            disabled={!stripe}
-          >
-            Pay
-          </button>
-        </div>
-      </form>
+      <div className="flex justify-center">
+        <button
+          className="btn btn-primary mt-10 w-1/2 text-xl"
+          type="submit"
+          disabled={!stripe}
+        >
+          Pay
+        </button>
+      </div>
+    </form>
     // </div>
   );
 };
