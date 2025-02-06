@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+//   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   const {
     data: payments = [],
@@ -14,7 +16,7 @@ const PaymentHistory = () => {
     queryKey: ["payments", user?.email],
     queryFn: async () => {
       if (!user?.email) return [];
-      const res = await axiosSecure.get(`/payments/${user.email}`);
+      const res = await axiosPublic.get(`/payments`);
       return res.data;
     },
     enabled: !!user?.email,
