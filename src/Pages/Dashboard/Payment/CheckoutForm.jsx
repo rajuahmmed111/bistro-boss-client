@@ -14,9 +14,9 @@ const CheckoutForm = () => {
   const elements = useElements();
 
   const axiosSecure = useAxiosSecure();
-  const { user, refetch } = useAuth();
+  const {  user } = useAuth();
 
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   useEffect(() => {
