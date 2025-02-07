@@ -18,6 +18,7 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import HomeUser from "../Pages/Dashboard/HomeUser/HomeUser";
 import HomeAdmin from "../Pages/Dashboard/HomeAdmin/HomeAdmin";
+import ManageBooking from "../Pages/Dashboard/ManageBooking/ManageBooking";
 
 export const router = createBrowserRouter([
   {
@@ -102,6 +103,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageItems />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-bookings",
+        element: (
+          <AdminRoute>
+            <ManageBooking />
           </AdminRoute>
         ),
       },

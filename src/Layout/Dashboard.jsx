@@ -56,7 +56,7 @@ const Dashboard = () => {
               </li>
               {/* my cart */}
               <li>
-                <NavLink to="/dashboard/bookings">
+                <NavLink to="/dashboard/manage-bookings">
                   {" "}
                   <FaBook /> Manage Bookings
                 </NavLink>
