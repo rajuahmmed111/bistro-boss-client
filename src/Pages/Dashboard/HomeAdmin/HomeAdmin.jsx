@@ -17,6 +17,15 @@ const HomeAdmin = () => {
     },
   });
 
+  const { data: chartData } = useQuery({
+    queryKey: ["chartData"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("order-status");
+      return res.data;
+    },
+  });
+  console.log(chartData);
+
   return (
     <div>
       <h2 className="text-3xl">
@@ -111,7 +120,6 @@ const HomeAdmin = () => {
             </CardContent>
           </Card>
         </div> */}
-
       </div>
     </div>
   );
