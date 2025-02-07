@@ -5,6 +5,10 @@ import { FaDollarSign, FaUsers } from "react-icons/fa";
 import { AiOutlineProduct } from "react-icons/ai";
 import { MdProductionQuantityLimits } from "react-icons/md";
 
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
+
+const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
+
 const HomeAdmin = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -17,14 +21,31 @@ const HomeAdmin = () => {
     },
   });
 
-  const { data: chartData } = useQuery({
+  const { data: chartData = [] } = useQuery({
     queryKey: ["chartData"],
     queryFn: async () => {
       const res = await axiosSecure.get("order-status");
       return res.data;
     },
   });
-  console.log(chartData);
+
+  // custom shape for the bar chart
+  const getPath = (x, y, width, height) => {
+    return `M${x},${y + height}C${x + width / 3},${y + height} ${
+      x + width / 2
+    },${y + height / 3}
+    ${x + width / 2}, ${y}
+    C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${
+      x + width
+    }, ${y + height}
+    Z`;
+  };
+
+  const TriangleBar = (props) => {
+    const { fill, x, y, width, height } = props;
+
+    return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+  };
 
   return (
     <div>
@@ -80,46 +101,36 @@ const HomeAdmin = () => {
           </div>
         </div>
 
-        {/* <div className="grid grid-cols-2 gap-8">
-          <Card>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={data}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="sold" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={100}
-                    fill="#8884d8"
-                    label
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
-                    ))}
-                  </Pie>
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div> */}
+        <div className="flex">
+          <div className="w-1/2">
+            <BarChart
+              width={500}
+              height={300}
+              data={data}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="category" />
+              <YAxis />
+              <Bar
+                dataKey="quantity"
+                fill="#8884d8"
+                shape={<TriangleBar />}
+                label={{ position: "top" }}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </div>
+          <div className="w-1/2"></div>
+        </div>
       </div>
     </div>
   );
