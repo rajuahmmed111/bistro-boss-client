@@ -5,9 +5,21 @@ import { FaDollarSign, FaUsers } from "react-icons/fa";
 import { AiOutlineProduct } from "react-icons/ai";
 import { MdProductionQuantityLimits } from "react-icons/md";
 
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from "recharts";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  PieChart,
+  Pie,
+  Sector,
+  ResponsiveContainer,
+} from "recharts";
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const HomeAdmin = () => {
   const { user } = useAuth();
@@ -45,6 +57,34 @@ const HomeAdmin = () => {
     const { fill, x, y, width, height } = props;
 
     return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+  };
+
+  // custom shape for the pie chart
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
   };
 
   return (
@@ -102,11 +142,12 @@ const HomeAdmin = () => {
         </div>
 
         <div className="flex">
+          {/* bart chart */}
           <div className="w-1/2">
             <BarChart
               width={500}
               height={300}
-              data={data}
+              data={chartData}
               margin={{
                 top: 20,
                 right: 30,
@@ -129,7 +170,48 @@ const HomeAdmin = () => {
               </Bar>
             </BarChart>
           </div>
-          <div className="w-1/2"></div>
+
+          {/* pie chartF */}
+          <div className="w-1/2">
+            <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
+              <Pie
+                data={chartData}
+                cx={120}
+                cy={200}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Pie
+                data={chartData}
+                cx={420}
+                cy={200}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </div>
         </div>
       </div>
     </div>
