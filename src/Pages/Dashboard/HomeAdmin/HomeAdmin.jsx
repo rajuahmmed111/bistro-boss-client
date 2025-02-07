@@ -9,7 +9,7 @@ const HomeAdmin = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: stats } = useQuery({
+  const { data: stats = [] } = useQuery({
     queryKey: ["stats"],
     queryFn: async () => {
       const res = await axiosSecure.get("/admin-stats");
@@ -24,7 +24,7 @@ const HomeAdmin = () => {
         {user?.displayName ? user.displayName : "Back"}
       </h2>
 
-      <div className="p-6 bg-gray-100 min-h-screen my-6">
+      <div className="p-6 min-h-screen my-6">
         <div className="grid grid-cols-4 gap-4 mb-8">
           {/* total revenues */}
           <div className="bg-gradient-to-r from-[#BE3BF5] to-[#F9D4FF] text-white p-4 rounded-xl shadow-md flex justify-center gap-4">
@@ -111,6 +111,7 @@ const HomeAdmin = () => {
             </CardContent>
           </Card>
         </div> */}
+
       </div>
     </div>
   );
