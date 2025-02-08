@@ -19,6 +19,7 @@ import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import HomeUser from "../Pages/Dashboard/HomeUser/HomeUser";
 import HomeAdmin from "../Pages/Dashboard/HomeAdmin/HomeAdmin";
 import ManageBooking from "../Pages/Dashboard/ManageBooking/ManageBooking";
+import Contact from "../Pages/Contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
       },
       {
         path: "menu",
