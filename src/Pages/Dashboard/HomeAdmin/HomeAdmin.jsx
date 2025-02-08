@@ -14,8 +14,7 @@ import {
   CartesianGrid,
   PieChart,
   Pie,
-  Sector,
-  ResponsiveContainer,
+  Legend,
 } from "recharts";
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
@@ -86,6 +85,13 @@ const HomeAdmin = () => {
     );
   };
 
+  const pieChartData = chartData.map((data) => {
+    return {
+      name: data.category,
+      value: data.revenue,
+    };
+  });
+
   return (
     <div>
       <h2 className="text-3xl">
@@ -93,7 +99,7 @@ const HomeAdmin = () => {
         {user?.displayName ? user.displayName : "Back"}
       </h2>
 
-      <div className="p-6 min-h-screen my-6">
+      <div className="min-h-screen my-6">
         <div className="grid grid-cols-4 gap-4 mb-8">
           {/* total revenues */}
           <div className="bg-gradient-to-r from-[#BE3BF5] to-[#F9D4FF] text-white p-4 rounded-xl shadow-md flex justify-center gap-4">
@@ -144,7 +150,7 @@ const HomeAdmin = () => {
           {/* bart chart */}
           <div className="w-1/2">
             <BarChart
-              width={500}
+              width={400}
               height={300}
               data={chartData}
               margin={{
@@ -170,39 +176,21 @@ const HomeAdmin = () => {
             </BarChart>
           </div>
 
-          {/* pie chartF */}
+          {/* pie chart */}
           <div className="w-1/2">
-            <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
+            <PieChart width={400} height={300}>
+              <Legend layout="horizontal" align="center" verticalAlign="top" />
               <Pie
-                data={chartData}
-                cx={120}
-                cy={200}
-                innerRadius={60}
+                data={pieChartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomizedLabel}
                 outerRadius={80}
                 fill="#8884d8"
-                paddingAngle={5}
                 dataKey="value"
               >
-                {chartData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Pie
-                data={chartData}
-                cx={420}
-                cy={200}
-                startAngle={180}
-                endAngle={0}
-                innerRadius={60}
-                outerRadius={80}
-                fill="#8884d8"
-                paddingAngle={5}
-                dataKey="value"
-              >
-                {chartData.map((entry, index) => (
+                {pieChartData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
