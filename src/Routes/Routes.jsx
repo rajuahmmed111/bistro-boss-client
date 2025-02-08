@@ -21,6 +21,7 @@ import HomeAdmin from "../Pages/Dashboard/HomeAdmin/HomeAdmin";
 import ManageBooking from "../Pages/Dashboard/ManageBooking/ManageBooking";
 import Contact from "../Pages/Contact/Contact";
 import Reservation from "../Pages/Dashboard/Reservation/Reservation";
+import AddReview from "../Pages/Dashboard/AddReview/AddReview";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
       {
         path: "payment-history",
         element: <PaymentHistory />,
+      },
+      {
+        path: "review",
+        element: <AddReview />,
       },
 
       // only admin routes
