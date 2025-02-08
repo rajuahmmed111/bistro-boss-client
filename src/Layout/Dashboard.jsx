@@ -108,7 +108,7 @@ const Dashboard = () => {
               </li>
               {/*  */}
               <li>
-                <NavLink to="/dashboard/bookings">
+                <NavLink to="/dashboard/my-bookings">
                   {" "}
                   <FaList /> My Booking
                 </NavLink>
