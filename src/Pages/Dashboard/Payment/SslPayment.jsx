@@ -3,7 +3,7 @@ import useCart from "../../../hooks/useCart";
 
 const SslPayment = () => {
   const { user } = useAuth();
-  const { cart } = useCart();
+  const [cart, refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   const handleCreatePayment = async () => {
@@ -17,6 +17,8 @@ const SslPayment = () => {
       menuItemIds: cart.map((item) => item.menuId),
       status: "pending",
     };
+
+    console.log(payment, "ssl payment");
   };
 
   return <div>SslPayment</div>;
