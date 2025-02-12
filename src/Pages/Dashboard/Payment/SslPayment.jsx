@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SslPayment = () => {
   const { user } = useAuth();
@@ -11,6 +12,9 @@ const SslPayment = () => {
   const navigate = useNavigate();
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+
+  const [email, setEmail] = useState("");
+
 
   const handleCreatePayment = async () => {
     // now save the payment in database
@@ -43,7 +47,27 @@ const SslPayment = () => {
     console.log(payment, "ssl payment");
   };
 
-  return <div>SslPayment</div>;
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-2xl">
+      <h2 className="text-xl font-bold mb-2">Payment Details</h2>
+      <p className="text-gray-600 mb-4">
+        Complete your order by providing your payment details
+      </p>
+      <input
+        type="email"
+        placeholder="Enter your email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-2 border rounded-lg mb-4"
+      />
+      <button
+        onClick={handleCreatePayment}
+        className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+      >
+        Please Order
+      </button>
+    </div>
+  );
 };
 
 export default SslPayment;
