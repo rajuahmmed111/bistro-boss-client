@@ -15,7 +15,6 @@ const SslPayment = () => {
 
   const [email, setEmail] = useState("");
 
-
   const handleCreatePayment = async () => {
     // now save the payment in database
     const payment = {
@@ -44,7 +43,7 @@ const SslPayment = () => {
       navigate("/dashboard/payment-history");
     }
 
-    console.log(payment, "ssl payment");
+    console.log(payment, "ssl payment", email);
   };
 
   return (
@@ -56,7 +55,7 @@ const SslPayment = () => {
       <input
         type="email"
         placeholder="Enter your email"
-        value={email}
+        defaultValue={user?.email}
         onChange={(e) => setEmail(e.target.value)}
         className="w-full p-2 border rounded-lg mb-4"
       />
