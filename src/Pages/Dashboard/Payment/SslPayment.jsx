@@ -2,14 +2,14 @@
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const SslPayment = () => {
   const { user } = useAuth();
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
@@ -39,7 +39,7 @@ const SslPayment = () => {
       //   showConfirmButton: false,
       //   timer: 1500,
       // });
-      navigate("/dashboard/payment-history");
+      // navigate("/dashboard/payment-history");
     }
 
     // console.log(payment, "ssl payment", email);
