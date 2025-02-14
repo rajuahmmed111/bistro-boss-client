@@ -8,7 +8,6 @@ const SslPayment = () => {
   const { user } = useAuth();
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
-  // const navigate = useNavigate();
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
