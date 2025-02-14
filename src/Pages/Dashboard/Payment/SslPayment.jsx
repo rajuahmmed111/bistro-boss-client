@@ -41,7 +41,6 @@ const SslPayment = () => {
       // navigate("/dashboard/payment-history");
     }
 
-    // console.log(payment, "ssl payment", email);
   };
 
   return (
