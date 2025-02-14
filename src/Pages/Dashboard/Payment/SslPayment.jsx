@@ -31,13 +31,7 @@ const SslPayment = () => {
     refetch();
     if (res.data?.gatewayUrl) {
       window.location.replace(res.data.gatewayUrl);
-      // Swal.fire({
-      //   position: "top-end",
-      //   icon: "success",
-      //   title: "Your SSL payment is successful!",
-      //   showConfirmButton: false,
-      //   timer: 1500,
-      // });
+     
       // navigate("/dashboard/payment-history");
     }
 
