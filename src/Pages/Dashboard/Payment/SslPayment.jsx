@@ -2,7 +2,6 @@
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
-// import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const SslPayment = () => {
