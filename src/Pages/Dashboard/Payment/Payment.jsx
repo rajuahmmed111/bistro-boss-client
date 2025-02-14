@@ -1,7 +1,6 @@
 import { loadStripe } from "@stripe/stripe-js";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import { Elements } from "@stripe/react-stripe-js";
-// import SslPayment from "./SslPayment";
 import CheckoutForm from "./CheckoutForm";
 
 // TODO: add publishable key
