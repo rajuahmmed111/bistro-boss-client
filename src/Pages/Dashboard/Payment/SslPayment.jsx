@@ -20,7 +20,7 @@ const SslPayment = () => {
       email: user?.email,
       amount: totalPrice,
       transactionId: "",
-      date: new Date(), // convert utc time use moment js
+      date: new Date(), //  convert utc time use moment js
       cartIds: cart.map((item) => item._id),
       menuItemIds: cart.map((item) => item.menuId),
       status: "pending",
