@@ -71,7 +71,6 @@ const CheckoutForm = () => {
 
     if (confirmError) {
       console.log("Payment error:", confirmError);
-      // setError(confirmError.message);
     } else {
       console.log("Payment intent:", paymentIntent);
       // setError("");
