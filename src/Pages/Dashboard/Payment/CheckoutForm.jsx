@@ -73,7 +73,6 @@ const CheckoutForm = () => {
       console.log("Payment error:", confirmError);
     } else {
       console.log("Payment intent:", paymentIntent);
-      // setError("");
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
 
