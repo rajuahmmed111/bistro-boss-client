@@ -90,7 +90,6 @@ const CheckoutForm = () => {
         };
 
         const res = await axiosSecure.post("/payment", payment);
-        // console.log(res.data);
         refetch();
         if (res.data.paymentResult.insertedId) {
           // show alert
