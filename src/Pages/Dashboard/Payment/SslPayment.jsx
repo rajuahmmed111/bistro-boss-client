@@ -31,8 +31,6 @@ const SslPayment = () => {
     refetch();
     if (res.data?.gatewayUrl) {
       window.location.replace(res.data.gatewayUrl);
-     
-      // navigate("/dashboard/payment-history");
     }
 
   };
